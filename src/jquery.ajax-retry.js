@@ -27,6 +27,9 @@
       if (opts.statusCodes) {
         this.statusCodes = opts.statusCodes;
       }
+      if (opts.notStatusCodes) {
+        this.notStatusCodes = opts.notStatusCodes;
+      }
       return this.pipe(null, pipeFailRetry(this, opts));
     };
   });
@@ -49,7 +52,7 @@
           .pipe(output.resolve, output.reject);
       }
 
-      if (times > 1 && (!jqXHR.statusCodes || $.inArray(input.status, jqXHR.statusCodes) > -1)) {
+      if (times > 1 && (!jqXHR.statusCodes || $.inArray(input.status, jqXHR.statusCodes) > -1) && (!jqXHR.notStatusCodes || $.inArray(input.status, jqXHR.notStatusCodes) === -1)) {
         // implement Retry-After rfc
         // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.37
         if (retryAfter) {
