@@ -31,6 +31,11 @@ jQuery(function($) {
   //this will only retry if the response status code matches the ones we specify
   $.ajax(options).retry({times:3, statusCodes: [503, 504]}).then(function(){
     alert("success!");
+  });  
+
+  //this will only retry if the response status code does not match the ones we specify
+  $.ajax(options).retry({times:3, notStatusCodes: [503, 504]}).then(function(){
+    alert("success!");
   });
 });
 </script>
